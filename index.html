@@ -27,9 +27,9 @@
       <div class="hero-copy">
         <p class="eyebrow">Microsoft Copilot 公務應用圖解操作指引</p>
         <h1>今天，你想少做哪一件重複工作？</h1>
-        <p class="lead">不是背 Prompt，而是從真實工作出發：判斷資料風險、說清楚任務、驗證 AI 結果，再把成果帶回公務流程。</p>
+        <p class="lead">不是背 Prompt，而是從真實工作出發。簡易級採「每一步一張圖」：跟著做一次，再慢慢理解資料風險、指令與驗證。</p>
         <div class="hero-actions">
-          <a class="btn primary" href="#missions">開始第一個任務</a>
+          <a class="btn primary" href="#missions">開始第一個看圖任務</a>
           <a class="btn ghost" href="#capabilities">看能力地圖</a>
         </div>
         <div class="stats" aria-label="網站學習統計">
@@ -37,16 +37,16 @@
           <div><strong id="statCompletions">0</strong><span>次完成</span></div>
           <div><strong id="statLikes">0</strong><span>次有幫助</span></div>
         </div>
-        <p class="microcopy">所有公開統計皆從 0 起算；不顯示姓名、不追蹤個人學習紀錄。</p>
+        <p class="microcopy">公開統計從 0 起算；不顯示姓名、不追蹤個人學習紀錄。真實後端統計將於下一階段接入。</p>
       </div>
       <aside class="hero-panel" aria-label="學習流程">
         <span class="panel-label">任務循環</span>
         <ol class="flow-list">
-          <li><b>1</b><span>工作目標</span></li>
-          <li><b>2</b><span>資料判斷</span></li>
-          <li><b>3</b><span>指揮 Copilot</span></li>
-          <li><b>4</b><span>驗證結果</span></li>
-          <li><b>5</b><span>回到工作</span></li>
+          <li><b>1</b><span>確認使用環境</span></li>
+          <li><b>2</b><span>選對可用資料</span></li>
+          <li><b>3</b><span>照圖操作 Copilot</span></li>
+          <li><b>4</b><span>驗證 AI 結果</span></li>
+          <li><b>5</b><span>帶回真實工作</span></li>
         </ol>
       </aside>
     </section>
@@ -54,7 +54,7 @@
     <section id="missions" class="section wrap">
       <div class="section-head">
         <div><p class="eyebrow">從工作開始</p><h2>選一件你真的會遇到的事</h2></div>
-        <p>第一版先把最常見、最容易帶來立即效益的任務做好。</p>
+        <p>簡易級：看圖照做。進階級：會修改指令。高手級：能重新設計工作流程。</p>
       </div>
       <div id="missionGrid" class="mission-grid" aria-live="polite"></div>
     </section>
@@ -63,11 +63,11 @@
       <div>
         <p class="eyebrow">能力地圖</p>
         <h2>公務 AI 能力，不等於會寫 Prompt</h2>
-        <p>真正要升級的是一整條工作鏈：知道何時用、怎麼餵、怎麼問、怎麼驗、最後怎麼負責。</p>
+        <p>真正要升級的是一整條工作鏈：知道何時用、怎麼餵、怎麼問、怎麼驗，最後怎麼負責。</p>
       </div>
       <div class="capability-stack">
-        <div><span>01</span>說清楚工作目標</div>
-        <div><span>02</span>判斷資料風險</div>
+        <div><span>01</span>確認正確 AI 環境</div>
+        <div><span>02</span>判斷資料可否使用</div>
         <div><span>03</span>提供正確資料</div>
         <div><span>04</span>指揮 Copilot</div>
         <div><span>05</span>驗證 AI 結果</div>
@@ -77,12 +77,14 @@
 
     <section id="principles" class="section wrap principles">
       <div class="section-head">
-        <div><p class="eyebrow">使用原則</p><h2>網站教方法，不存公務內容</h2></div>
+        <div><p class="eyebrow">資料使用邊界</p><h2>有企業資料保護，不等於所有公務資料都能上傳</h2></div>
+        <p>Microsoft 365 工作／學校帳號的 Copilot Chat 提供 Enterprise Data Protection；政府機關仍須依自身資料分類、個資、保密與 AI 使用規範判斷可否使用。</p>
       </div>
       <div class="risk-grid">
-        <article class="risk green"><h3>綠燈</h3><p>公開資料、模擬案例、已核准可使用的教材。</p></article>
-        <article class="risk yellow"><h3>黃燈</h3><p>內部工作資料：先確認帳號、環境與機關規範。</p></article>
-        <article class="risk red"><h3>紅燈</h3><p>個資、敏感內容、未授權資料：先停、先處理、再決定。</p></article>
+        <article class="risk green"><h3>🟢 公開資料</h3><p>公開文件、公開網站、模擬案例，可作為最安全的練習材料。</p></article>
+        <article class="risk blue"><h3>🔵 已核准內部資料</h3><p>一般內部業務資料，且機關已確認可在公務 Copilot 環境使用。</p></article>
+        <article class="risk yellow"><h3>🟡 先確認</h3><p>未公開、公務內部、含個資或敏感內容時，先確認機關規範或完成必要處理。</p></article>
+        <article class="risk red"><h3>🔴 不要自行上傳</h3><p>機密、公務應保密或明確禁止輸入外部生成式 AI 的資料。</p></article>
       </div>
     </section>
   </main>
@@ -90,7 +92,7 @@
   <footer>
     <div class="wrap footer-wrap">
       <p>心健司 AI PRO · 以公務實務為核心的 AI 學習工具</p>
-      <p>v0.1</p>
+      <p>v0.2 · 介面參考 2026-09</p>
     </div>
   </footer>
 
