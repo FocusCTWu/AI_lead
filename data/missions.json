@@ -1,0 +1,50 @@
+[
+  {
+    "id":"plan-to-review-form",
+    "title":"計畫書 → 行政初審表",
+    "description":"練習從長篇計畫書擷取指定欄位、要求依據，並辨認 AI 不能自行補的地方。",
+    "level":"簡易級",
+    "tags":["計畫審查","資料擷取","制式表格"],
+    "active":true
+  },
+  {
+    "id":"long-doc-summary",
+    "title":"長文件快速抓重點",
+    "description":"把數十到數百頁文件拆成可驗證的重點，不只要求一段摘要。",
+    "level":"簡易級",
+    "tags":["長文件","摘要","來源核對"],
+    "active":false
+  },
+  {
+    "id":"document-diff",
+    "title":"兩份文件差異比較",
+    "description":"比較計畫書、修正版、成果報告之間的差異與缺漏。",
+    "level":"進階級",
+    "tags":["文件比較","差異","一致性"],
+    "active":false
+  },
+  {
+    "id":"official-writing-check",
+    "title":"公文／行政文字除錯",
+    "description":"找出錯字、日期、數字、前後矛盾與需人工確認之處。",
+    "level":"簡易級",
+    "tags":["公文","除錯","校對"],
+    "active":false
+  },
+  {
+    "id":"ai-trust-check",
+    "title":"AI 回答可信嗎？",
+    "description":"辨認 hallucination、過度推論、漏讀與沒有證據的回答。",
+    "level":"進階級",
+    "tags":["驗證","風險","AI素養"],
+    "active":false
+  },
+  {
+    "id":"workflow-diagnosis",
+    "title":"我不知道 AI 能幫什麼",
+    "description":"從自己的工作流程找出最適合先交給 AI 的低風險、高重複任務。",
+    "level":"高手級",
+    "tags":["流程重設","工作診斷"],
+    "active":false
+  }
+]

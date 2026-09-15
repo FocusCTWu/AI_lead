@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="心健司 AI PRO：公務 AI 任務訓練場" />
+  <title>心健司 AI PRO｜公務 AI 任務訓練場</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav-wrap">
+      <a class="brand" href="#top" aria-label="回首頁">
+        <span class="brand-mark">AI</span>
+        <span><strong>心健司 AI PRO</strong><small>公務 AI 任務訓練場</small></span>
+      </a>
+      <nav aria-label="主要導覽">
+        <a href="#missions">任務</a>
+        <a href="#capabilities">能力地圖</a>
+        <a href="#principles">使用原則</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Microsoft Copilot 公務應用圖解操作指引</p>
+        <h1>今天，你想少做哪一件重複工作？</h1>
+        <p class="lead">不是背 Prompt，而是從真實工作出發：判斷資料風險、說清楚任務、驗證 AI 結果，再把成果帶回公務流程。</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#missions">開始第一個任務</a>
+          <a class="btn ghost" href="#capabilities">看能力地圖</a>
+        </div>
+        <div class="stats" aria-label="網站學習統計">
+          <div><strong id="statViews">0</strong><span>次學習</span></div>
+          <div><strong id="statCompletions">0</strong><span>次完成</span></div>
+          <div><strong id="statLikes">0</strong><span>次有幫助</span></div>
+        </div>
+        <p class="microcopy">所有公開統計皆從 0 起算；不顯示姓名、不追蹤個人學習紀錄。</p>
+      </div>
+      <aside class="hero-panel" aria-label="學習流程">
+        <span class="panel-label">任務循環</span>
+        <ol class="flow-list">
+          <li><b>1</b><span>工作目標</span></li>
+          <li><b>2</b><span>資料判斷</span></li>
+          <li><b>3</b><span>指揮 Copilot</span></li>
+          <li><b>4</b><span>驗證結果</span></li>
+          <li><b>5</b><span>回到工作</span></li>
+        </ol>
+      </aside>
+    </section>
+
+    <section id="missions" class="section wrap">
+      <div class="section-head">
+        <div><p class="eyebrow">從工作開始</p><h2>選一件你真的會遇到的事</h2></div>
+        <p>第一版先把最常見、最容易帶來立即效益的任務做好。</p>
+      </div>
+      <div id="missionGrid" class="mission-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="capabilities" class="section wrap split-section">
+      <div>
+        <p class="eyebrow">能力地圖</p>
+        <h2>公務 AI 能力，不等於會寫 Prompt</h2>
+        <p>真正要升級的是一整條工作鏈：知道何時用、怎麼餵、怎麼問、怎麼驗、最後怎麼負責。</p>
+      </div>
+      <div class="capability-stack">
+        <div><span>01</span>說清楚工作目標</div>
+        <div><span>02</span>判斷資料風險</div>
+        <div><span>03</span>提供正確資料</div>
+        <div><span>04</span>指揮 Copilot</div>
+        <div><span>05</span>驗證 AI 結果</div>
+        <div><span>06</span>重設工作流程</div>
+      </div>
+    </section>
+
+    <section id="principles" class="section wrap principles">
+      <div class="section-head">
+        <div><p class="eyebrow">使用原則</p><h2>網站教方法，不存公務內容</h2></div>
+      </div>
+      <div class="risk-grid">
+        <article class="risk green"><h3>綠燈</h3><p>公開資料、模擬案例、已核准可使用的教材。</p></article>
+        <article class="risk yellow"><h3>黃燈</h3><p>內部工作資料：先確認帳號、環境與機關規範。</p></article>
+        <article class="risk red"><h3>紅燈</h3><p>個資、敏感內容、未授權資料：先停、先處理、再決定。</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-wrap">
+      <p>心健司 AI PRO · 以公務實務為核心的 AI 學習工具</p>
+      <p>v0.1</p>
+    </div>
+  </footer>
+
+  <dialog id="missionDialog" class="mission-dialog">
+    <form method="dialog" class="dialog-shell">
+      <button class="close-btn" value="cancel" aria-label="關閉">×</button>
+      <div id="missionContent"></div>
+    </form>
+  </dialog>
+
+  <script src="js/stats.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
