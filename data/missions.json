@@ -2,17 +2,17 @@
   {
     "id":"plan-to-review-form",
     "title":"計畫書 → 行政初審表",
-    "description":"練習從長篇計畫書擷取指定欄位、要求依據，並辨認 AI 不能自行補的地方。",
+    "description":"看圖一步一步完成：確認公務 Copilot 環境、上傳文件、貼上指令、取得可回查的擷取結果。",
     "level":"簡易級",
-    "tags":["計畫審查","資料擷取","制式表格"],
+    "tags":["計畫審查","資料擷取","看圖操作"],
     "active":true
   },
   {
     "id":"long-doc-summary",
     "title":"長文件快速抓重點",
-    "description":"把數十到數百頁文件拆成可驗證的重點，不只要求一段摘要。",
+    "description":"看圖操作上傳長文件，要求 Copilot 依主題整理重點並附可回查的依據。",
     "level":"簡易級",
-    "tags":["長文件","摘要","來源核對"],
+    "tags":["長文件","摘要","看圖操作"],
     "active":false
   },
   {
@@ -26,9 +26,9 @@
   {
     "id":"official-writing-check",
     "title":"公文／行政文字除錯",
-    "description":"找出錯字、日期、數字、前後矛盾與需人工確認之處。",
+    "description":"看圖完成文件貼入或上傳，讓 Copilot 找出錯字、日期、數字與前後矛盾。",
     "level":"簡易級",
-    "tags":["公文","除錯","校對"],
+    "tags":["公文","除錯","看圖操作"],
     "active":false
   },
   {
