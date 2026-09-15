@@ -5,7 +5,7 @@ const missionContent = document.querySelector('#missionContent');
 const likedKey = id => `ai-lead-liked:${id}`;
 
 function escapeHtml(s='') {
-  return s.replace(/[&<>'\"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]));
+  return s.replace(/[&<>'\"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt',"'":'&#39;','\"':'&quot;'}[c]));
 }
 
 async function loadMissions(){
@@ -30,6 +30,7 @@ async function openMission(m){
   await window.AILeadStats.increment(m.id,'views');
   renderMission(m);
   dialog.showModal();
+  dialog.scrollTop = 0;
 }
 
 function stepCard(n, title, body, image, alt, tip=''){
@@ -141,8 +142,11 @@ function renderMission(m){
     <section class="step finish-step">
       <h3>完成：模板定義欄位，計畫書提供證據，人完成判斷</h3>
       <p><strong>AI 負責：</strong>讀取模板、逐欄找資訊、整理證據、做可驗證的計算／一致性檢查、指出缺漏。<br><strong>人負責：</strong>確認資料使用合規、核對原文、解讀正式規定、做行政裁量與正式登載。</p>
-      <button type="button" class="btn primary" id="completeBtn">✅ 我已完成並核對一筆</button>
-      <button type="button" class="btn ghost like-btn ${liked?'active':''}" id="likeBtn">${liked?'👍 已標記有幫助':'👍 這對我有幫助'}</button>
+      <div class="finish-actions">
+        <button type="button" class="btn primary" id="completeBtn">✅ 完成並回任務列表</button>
+        <button type="button" class="btn ghost like-btn ${liked?'active':''}" id="likeBtn">${liked?'👍 已標記有幫助':'👍 這對我有幫助'}</button>
+        <button type="button" class="btn ghost" id="closeMissionBtn">先關閉，之後再看</button>
+      </div>
       <div class="feedback" id="doneFeedback" aria-live="polite"></div>
     </section>`;
 
@@ -159,8 +163,11 @@ function renderMission(m){
   document.querySelectorAll('#verifyChoices .choice').forEach(btn => btn.addEventListener('click',()=>markChoice(btn,'verifyFeedback','正確：現行模板定義欄位，正式規定決定判斷；已填範例只能參考寫法。')));
   document.querySelector('#completeBtn').addEventListener('click', async ()=>{
     await window.AILeadStats.increment(m.id,'completions');
-    document.querySelector('#doneFeedback').textContent='完成。你已跑過一次「模板定義欄位 → 計畫書提供證據 → 人完成判斷」的完整流程。';
+    dialog.close();
+    await loadMissions();
+    document.querySelector('#missions').scrollIntoView({behavior:'smooth',block:'start'});
   });
+  document.querySelector('#closeMissionBtn').addEventListener('click', ()=>dialog.close());
   document.querySelector('#likeBtn').addEventListener('click', async e=>{
     if(localStorage.getItem(likedKey(m.id))==='1') return;
     localStorage.setItem(likedKey(m.id),'1');
@@ -181,6 +188,10 @@ function markChoice(btn, feedbackId, correctMsg){
     document.querySelector(`#${feedbackId}`).textContent='這一步不能只看範例或 AI 文字，仍要回到現行模板、正式規定與本案原始資料。';
   }
 }
+
+dialog.addEventListener('click', e=>{
+  if(e.target === dialog) dialog.close();
+});
 
 loadMissions().catch(err=>{
   missionGrid.innerHTML='<p>教材載入失敗，請確認網站是透過 GitHub Pages/HTTP 開啟，而不是直接雙擊本機 HTML。</p>';
