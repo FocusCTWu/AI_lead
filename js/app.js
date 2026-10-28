@@ -20,7 +20,7 @@ async function loadMissions(){
       <h3>${escapeHtml(m.title)}</h3>
       <p>${escapeHtml(m.description)}</p>
       <div class="mission-stats"><span>👁 ${stats.views||0}</span><span>✅ ${stats.completions||0}</span><span>👍 ${stats.likes||0}</span></div>
-      <button class="btn ${m.active?'primary':'ghost'}" ${m.active?'':'disabled'}>${m.active?'開始看圖操作':'即將開放'}</button>`;
+      <button class="btn ${m.active?'primary':'ghost'}" ${m.active?'':'disabled'}>${m.active?escapeHtml(m.buttonLabel || (m.mode==='prompt-guide'?'開始照著做':'開始看圖操作')):'即將開放'}</button>`;
     if(m.active) card.querySelector('button').addEventListener('click',()=>openMission(m));
     missionGrid.appendChild(card);
   }
@@ -48,6 +48,11 @@ function stepCard(n, title, body, image, alt, tip=''){
 }
 
 function renderMission(m){
+  if(m.mode === 'prompt-guide') return renderPromptMission(m);
+  return renderReviewMission(m);
+}
+
+function renderReviewMission(m){
   const liked = localStorage.getItem(likedKey(m.id)) === '1';
   missionContent.innerHTML = `
     <p class="eyebrow">${escapeHtml(m.level)} · 模板導向雙文件對照</p>
@@ -175,6 +180,95 @@ function renderMission(m){
     e.currentTarget.textContent='👍 已標記有幫助';
     e.currentTarget.classList.add('active');
   });
+}
+
+
+function renderPromptMission(m){
+  const liked = localStorage.getItem(likedKey(m.id)) === '1';
+  const prep = (m.prepare || []).map(x=>`<li>${escapeHtml(x)}</li>`).join('');
+  const checks = (m.check || []).map(x=>`<li>${escapeHtml(x)}</li>`).join('');
+  missionContent.innerHTML = `
+    <p class="eyebrow">${escapeHtml(m.level)} · 照著做 Prompt</p>
+    <h2>${escapeHtml(m.title)}</h2>
+    <p class="mission-intro">${escapeHtml(m.description)}</p>
+
+    <section class="prompt-mission-section">
+      <div class="step-number">準備</div>
+      <h3>先把這些資料準備好</h3>
+      <ul class="prompt-checklist">${prep}</ul>
+      <div class="step-tip">先確認資料可以在目前的公務 Copilot 環境使用，再上傳。</div>
+    </section>
+
+    <section class="prompt-mission-section">
+      <div class="step-number">照著做</div>
+      <h3>把 Prompt 複製到 Copilot</h3>
+      <textarea id="promptBox" class="prompt-box prompt-box-large">${escapeHtml(m.prompt || '')}</textarea>
+      <div class="prompt-actions">
+        <button type="button" class="btn primary" id="copyPromptBtn">複製 Prompt</button>
+        <span id="copyFeedback" class="feedback" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section class="prompt-mission-section">
+      <div class="step-number">你應該得到</div>
+      <h3>${escapeHtml(m.outcome || '可回查、可人工確認的工作草稿')}</h3>
+      <div class="step-tip">${escapeHtml(m.principle || '')}</div>
+    </section>
+
+    <section class="prompt-mission-section knowledge-check">
+      <div class="step-number">完成前檢查</div>
+      <h3>不要直接交件，先看這三件事</h3>
+      <ul class="prompt-checklist">${checks}</ul>
+    </section>
+
+    <section class="step finish-step">
+      <h3>完成：把結果帶回工作流程</h3>
+      <p>Copilot 先幫你整理；正式內容仍要依原始文件、規定與承辦判斷確認。</p>
+      <div class="finish-actions">
+        <button type="button" class="btn primary" id="completeBtn">✅ 完成並回任務列表</button>
+        <button type="button" class="btn ghost like-btn ${liked?'active':''}" id="likeBtn">${liked?'👍 已標記有幫助':'👍 這對我有幫助'}</button>
+        <button type="button" class="btn ghost" id="closeMissionBtn">先關閉，之後再看</button>
+      </div>
+    </section>`;
+
+  bindCommonMissionActions(m);
+}
+
+function bindCommonMissionActions(m){
+  const copyBtn = document.querySelector('#copyPromptBtn');
+  if(copyBtn){
+    copyBtn.addEventListener('click', async ()=>{
+      const box = document.querySelector('#promptBox');
+      try{
+        await navigator.clipboard.writeText(box.value);
+        document.querySelector('#copyFeedback').textContent='已複製，可切到 Copilot 貼上。';
+      }catch{
+        box.select();
+        document.querySelector('#copyFeedback').textContent='請按 Ctrl+C 複製選取內容。';
+      }
+    });
+  }
+  const completeBtn = document.querySelector('#completeBtn');
+  if(completeBtn){
+    completeBtn.addEventListener('click', async ()=>{
+      await window.AILeadStats.increment(m.id,'completions');
+      dialog.close();
+      await loadMissions();
+      document.querySelector('#missions').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
+  const closeBtn = document.querySelector('#closeMissionBtn');
+  if(closeBtn) closeBtn.addEventListener('click', ()=>dialog.close());
+  const likeBtn = document.querySelector('#likeBtn');
+  if(likeBtn){
+    likeBtn.addEventListener('click', async e=>{
+      if(localStorage.getItem(likedKey(m.id))==='1') return;
+      localStorage.setItem(likedKey(m.id),'1');
+      await window.AILeadStats.increment(m.id,'likes');
+      e.currentTarget.textContent='👍 已標記有幫助';
+      e.currentTarget.classList.add('active');
+    });
+  }
 }
 
 function markChoice(btn, feedbackId, correctMsg){
